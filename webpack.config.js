@@ -4,24 +4,41 @@
  * @Author: Author
  * @Date: 2020-06-10 17:42:56
  * @LastEditors: konglingzhan
- * @LastEditTime: 2020-06-10 18:12:32
+ * @LastEditTime: 2020-06-11 16:07:11
  */ 
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
+console.log(process.env)
 module.exports = {
-  entry: './src/index.js',
+  mode:'development', // 编译模式 production development none
+  entry: './src/main.js',
   output: {
-    filename: 'bundle.js',
+    filename: '[name].[hash].bundle.js',
     path: path.resolve(__dirname, 'dist')
   },
+  module:{
+    rules:[
+      { // .vue文件编译loader
+        test: /\.vue$/,
+        loader:'vue-loader'
+      }
+    ]
+  },
   plugins:[
-    new CleanWebpackPlugin({ cleanAfterEveryBuildPatterns: ['static*.*', '!static1.js']}),
+    new CleanWebpackPlugin(),
+    new VueLoaderPlugin(),
     new HtmlWebpackPlugin({
-      title:'my html'
+      template:'./public/index.html',
+      filename: 'index.html',
+      minify:{
+        collapseWhitespace: true,//移除空格
+        removeAttributeQuotes:false//移除属性的双引号
+      }
     })
   ],
   devServer:{
-    contentBase:'./dist'
+    contentBase:'./dist' // webpack-dev-server 启动目录
   }
 };
