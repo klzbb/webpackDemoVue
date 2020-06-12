@@ -4,7 +4,7 @@
  * @Author: Author
  * @Date: 2020-06-11 15:39:21
  * @LastEditors: konglingzhan
- * @LastEditTime: 2020-06-11 18:28:21
+ * @LastEditTime: 2020-06-12 15:41:45
 --> 
 <template>
   <div class="app_root">
@@ -19,12 +19,13 @@ export default {
   name:'AppRoot'
 }
 </script>
-<style lang="css">
+<style lang="scss">
 .app_root{
   width: 100vw;
-  
+  .rem{
+    width: 375px;
+    font-size: 20px;
+  }
 }
-.rem{
-  width: 750px;
-}
+
 </style>

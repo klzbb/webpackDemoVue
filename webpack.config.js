@@ -4,7 +4,7 @@
  * @Author: Author
  * @Date: 2020-06-10 17:42:56
  * @LastEditors: konglingzhan
- * @LastEditTime: 2020-06-11 18:27:51
+ * @LastEditTime: 2020-06-12 15:42:26
  */ 
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -28,22 +28,23 @@ module.exports = {
       {
         test:/\.(scss|css)$/,
         use:[
+          'vue-style-loader',
           'style-loader',
           'css-loader',
-          
-          'sass-loader',
           {
             loader:'postcss-loader', //放在这'style-loader','css-loader'后面，sass-loader前面
             options: {
               ident: 'postcss', //当引入外部的依赖包作为组件配置项时需要定义一个唯一的标识符，推荐这样写
-              plugin:[
+              plugins:[
                 pxtorem({
-                  rootValue: 16, //表示根元素html的fontSize值,也可以是100,获取任意其他值
-                  propList: ['*'], //设置px转换成rem的属性值，*表示所有属性的px转换为rem
+                  rootValue: 37.5, //表示根元素html的fontSize值,也可以是100,获取任意其他值
+                  propList: ['width','height','lineHeight'], //设置px转换成rem的属性值，*表示所有属性的px转换为rem
                 })
               ]
             }
-          }
+          },
+          'sass-loader',
+          
         ]
       }
     ]
